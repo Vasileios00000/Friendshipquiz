@@ -1,0 +1,106 @@
+﻿@model Quiz.ViewModels.CreateQuestionViewModel
+
+@{
+    ViewBag.Title = "CreateQuestion";
+}
+
+<h2>Add Questions</h2>
+
+@using (Html.BeginForm("CreateQuestion", "CreateQuestion", FormMethod.Post))
+{
+    @*@Html.AntiForgeryToken()*@
+    @Html.HiddenFor(m=>m.humanId)
+    @Html.HiddenFor(m=>m.Number)
+    <div class="form-horizontal">
+        <h4>Question @Model.Number</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+     
+        <div class="form-group">
+            @Html.LabelFor(model => model.MainQuestion, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.MainQuestion, new { @class = "form-control", @style = "width:100%" })
+                @Html.ValidationMessageFor(model => model.MainQuestion, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Answer1, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Answer1, new { htmlAttributes = new { @class = "form-control", @id = "Answer1" } })
+                @Html.ValidationMessageFor(model => model.Answer1, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Answer2, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Answer2, new { htmlAttributes = new { @class = "form-control", @id = "Answer2" } })
+                @Html.ValidationMessageFor(model => model.Answer2, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Answer3, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Answer3, new { htmlAttributes = new { @class = "form-control", @id = "Answer3" } })
+                @Html.ValidationMessageFor(model => model.Answer3, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Answer4, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Answer4, new { htmlAttributes = new { @class = "form-control", @id = "Answer4" } })
+                @Html.ValidationMessageFor(model => model.Answer4, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CorrectAns, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CorrectAns, new { htmlAttributes = new { @class = "form-control", @id = "correctans" } })
+                @Html.ValidationMessageFor(model => model.CorrectAns, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Add this Question" onclick="return validateAnswer()" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index","Home")
+</div>
+
+
+@section scripts
+{
+    <script>
+        function validateAnswer()
+        {
+
+            var correct_ans = document.getElementById("correctans").value;
+            var ans1 = document.getElementById("Answer1").value;
+            var ans2 = document.getElementById("Answer2").value;
+            var ans3 = document.getElementById("Answer3").value;
+            var ans4 = document.getElementById("Answer4").value;
+
+            if (correct_ans == ans1 || correct_ans == ans2 || correct_ans == ans3 || correct_ans == ans4)
+            {       
+                console.log("hi")
+                return true
+            }
+            else
+            {
+                alert("You must submit one Correct Answer that maches with one of the Answers ")
+                console.log("no hi")
+                return false
+            }
+        }
+
+    </script>
+    }

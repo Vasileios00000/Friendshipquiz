@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Quiz.Models.Score>
+@{
+    ViewBag.Title = "HighScores";
+}
+
+<h2>High-Scores</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Score</th>
+        </tr>
+    </thead>
+    @{int i = 0; }
+    @foreach (var item in Model)
+    {
+        i++;
+
+        <tbody>
+            <tr>
+                <th scope="row">@i</th>
+                <td>@item.ApplicationUser.Name</td>
+                <td>@item.FinalScore</td>
+            </tr>
+        </tbody>
+    }
+ </table>
+
+
+    
+
+
+

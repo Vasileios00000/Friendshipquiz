@@ -1,0 +1,38 @@
+﻿@model Quiz.ViewModels.FeatureViewModel
+@{
+    ViewBag.Title = "Your Score";
+}
+
+@using (Html.BeginForm("Calculate", "Features"))
+{
+<h2>Congratulations you have finished the Quiz</h2>
+<h3>You have @ViewBag.FinalScore /10 correct answers</h3>
+
+
+
+
+<div class="form-group">
+    <h3>From 1 to 10, how difficult you found this Quiz about @Model.Name (1 Very-easy -- 10 Very-hard)</h3>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.Difficulty, new { htmlAttributes = new { @class = "form-control" } })
+        @Html.ValidationMessageFor(model => model.Difficulty, "", new { @class = "text-danger" })
+        <br />
+
+        <input type="submit" value="Submit and return to Homepage" class="btn btn-default" />
+    </div>
+</div>
+
+<div class="col-md-offset-2 col-md-10">
+    
+</div>
+
+}
+
+
+
+
+
+
+
+
+

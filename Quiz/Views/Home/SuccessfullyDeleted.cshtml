@@ -1,0 +1,10 @@
+﻿@model Quiz.DTOs.NameDTO
+@{                     
+
+    ViewBag.Title = "SuccessfullyDeleted";
+}
+
+<h3>You have successfully deleted @Model.Name</h3>
+
+@Html.ActionLink("Back to Homepage", "Index", "Home", new { style = "font-size: larger;"  })
+

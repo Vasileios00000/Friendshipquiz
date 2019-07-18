@@ -1,0 +1,96 @@
+﻿@using Microsoft.AspNet.Identity;
+@model IEnumerable<Quiz.Models.Human>
+@{
+    ViewBag.Title = "Home Page";
+}
+<div class="jumbotron">
+    <h2>How good do you know your friends?</h2>
+    <h2>How good your friends Know you?</h2>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <h3>@Html.ActionLink("Add Yourself to the Quiz", "CreateHuman", "CreateHuman")</h3>
+        }
+    <p class="lead">
+        Choose one of the persons below and TEST how good you know him/her<br />
+        Also you can see what other people score for that person.<br />
+        You have 10 questions to answer about him/her<br />
+        Watch-out you can take the Quiz only once for each person<br />
+        Also you can upload 10 qustions about your life and check<br />
+        what your friends know about you...
+    </p>
+
+    @if (User.Identity.IsAuthenticated)
+    {
+        <p>Are you ready? Click Start The Quiz</p>
+    }
+    else
+    {
+        <P>Plese <a href="@Url.Action("Register","Account")">Register</a> to take the test or to Add yourself! It will only take a few seconds </P>
+    }
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-sm-6 col-md-4">
+            <div class="thumbnail">
+
+                <img src="~/Photos/@item.Photo1" alt="...">
+                <div class="caption">
+                    <h3>@item.Name</h3>
+
+                    <p>
+                        <a href="@Url.Action("StartQuiz","Home", new { Id = item.Id})" id="startquiz" class="btn btn-primary startquiz" role="button">Start the Quiz</a>
+                        <a href="@Url.Action("HighScores","Home", new { Id= item.Id})" class="btn btn-default" role="button">High Scores</a>
+                        @if (User.Identity.GetUserId() == item.ApplicationUserId && item.ApplicationUserId!=null)
+                        {
+                            <a href="@Url.Action("Delete", "Home", new { humanid = item.Id })" class="btn btn-primary" role="button">Delete</a>
+                        }
+                    </p><br />
+
+                    <div class="features">
+                        <span style="color:red;padding-left: 1em;">Difficulty</span><span style="color:#29c33e">Average Score</span>
+                    </div>
+                    <div class="features">
+                        <span style="color:red">@item.Difficulty.ToString("0.##")/10</span><span style="color:#29c33e">@item.AverageScore.ToString("0.##")/10</span>
+                    </div>
+                   
+
+
+                </div>
+                
+            </div>
+        </div>
+    }
+    </div>
+
+
+@section scripts
+{
+
+<script>
+
+    
+
+    if ('@User.Identity.IsAuthenticated' == '@false') {
+
+        var element = document.getElementsByClassName('startquiz');
+        for (var i = 0; i < element.length; i++)
+        {
+            element[i].onclick = function () {
+                alert('You must sign-in to take the test')
+            }
+            element[i].href = "#"
+        }
+
+    }
+    console.log('1')
+    if ('@ViewBag.IsPlayed'== 'IsPlayed') {
+        console.log('2')
+        alert('You have already taken this Quiz.')
+    }
+
+</script>
+
+    
+}
